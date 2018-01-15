@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>pdf-on-canvas demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.265/pdf.min.js"></script>
+    <script src="../pdf-on-canvas.js"></script>
+</head>
+
+<style>
+
+.pdf-content {
+    border: 1px solid #000000;
+}
+.annotation-box {
+    cursor: pointer;
+}
+.annotation-box:hover {
+    background-color: #8bc34a4f;
+}
+
+</style>
+
+<body>
+    <div id="pdf-container" class="pdf-content">
+        <canvas id="my-canvas"></canvas>
+    </div>
+</body>
+
+<script>
+
+
+function renderPDF(pdfURL, canvasID, pdfContainerID) {
+    var canvas = document.getElementById(canvasID);
+    var pdfContainer = document.getElementById(pdfContainerID);
+
+    PDFJS.getDocument(pdfURL).then(function (pdf) {
+        return pdf.getPage(1);
+    }).then(function (page) {
+        var scale = 1;
+        var viewport = page.getViewport(scale);
+
+        var context = canvas.getContext("2d");
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        pdfContainer.style.width = `${canvas.width}px`;
+        pdfContainer.style.height = `${canvas.height}px`
+
+        var renderContext = {
+            canvasContext: context,
+            viewport: viewport
+        };
+        page.render(renderContext);
+
+        setupTextAnnotations(page, viewport, canvas, (target) => {
+            target.style.backgroundColor = 'black';
+        });
+    });
+}
+
+PDFJS.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.265/pdf.worker.min.js';
+
+document.addEventListener("DOMContentLoaded", function() {
+    var pdfURL = 'https://cdn.mozilla.net/pdfjs/tracemonkey.pdf';
+    renderPDF(pdfURL, 'my-canvas', 'pdf-container');
+});
+
+</script>
+
+</html>
