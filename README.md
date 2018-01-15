@@ -1,9 +1,11 @@
 # pdf-on-canvas.js
 pdf annotation on canvas, as an extension of [pdf.js](https://github.com/mozilla/pdf.js)
 
+![demo](demo/captured.png)
+
 ## Usage
 
-You can check [demo]()
+You can check the [demo](https://todoaskit.github.io/pdf-on-canvas.js/demo/)
 
 ### Load (w/ dependency)
 ```html
@@ -20,15 +22,14 @@ You can check [demo]()
 
 ### Add annotations
 ```javascript
-/* After render pdf */
+/* After rendering pdf */
 setupTextAnnotations(page, viewport, canvas, (target) => {
-    /* callback */
+    /* Event handler */
 });
 ```
 
 ### Get text
 ```javascript
-/* in callback */
+/* in handler */
 target.getAttribute('strVal')
 ```
-
