@@ -5,7 +5,7 @@ pdf annotation on canvas, as an extension of [pdf.js](https://github.com/mozilla
 
 ## Usage
 
-You can check the [demo](https://todoaskit.github.io/pdf-on-canvas.js/demo/)
+You can check the [demo](https://dongkwan-kim.github.io/pdf-on-canvas.js/demo/)
 
 ### Load (w/ dependency)
 ```html
